@@ -1,0 +1,8 @@
+# This file contains settings for `cargo hakari`.
+# See https://docs.rs/cargo-hakari/latest/cargo_hakari/config for a full list of options.
+
+hakari-package = "swg_workspace"
+dep-format-version = "4"
+workspace-hack-line-style = "workspace-dotted"
+resolver = "2"
+platforms = []
