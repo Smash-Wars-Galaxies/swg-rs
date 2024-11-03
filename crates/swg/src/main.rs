@@ -6,6 +6,8 @@ use miette::{IntoDiagnostic, Result};
 use tracing_log::AsTrace;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt, EnvFilter};
 
+mod commands;
+
 #[derive(Parser)]
 #[command(version, about, long_about = None)]
 #[command(propagate_version = true)]
@@ -14,7 +16,7 @@ struct Cli {
     verbose: clap_verbosity_flag::Verbosity<InfoLevel>,
 
     #[command(subcommand)]
-    command: swg::commands::Commands,
+    command: commands::Commands,
 }
 
 fn main() -> Result<()> {
