@@ -1,0 +1,26 @@
+[package]
+name = "swg_iff"
+version = "0.1.0"
+description = "A library for reading from and creating IFF files used by Star Wars Galaxies"
+edition.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+license.workspace = true
+keywords = ["iff", "swg"]
+categories = ["compression", "game-development", "parser-implementations"]
+
+publish = true
+exclude = ["tests/**", "resources/**", "benches/**", "examples/**"]
+
+[dependencies]
+binrw = "0.14.0"
+byteorder = "1"
+miette = { version = "7.2.0", features = ["fancy"] }
+swg_workspace.workspace = true
+thiserror = "1.0.64"
+tracing = { version = "0.1.40", features = ["log"] }
+
+[dev-dependencies]
+divan = "0.1.15"
+tracing-test = { version = "0.2.5", features = ["no-env-filter"] }
+walkdir = "2.5.0"

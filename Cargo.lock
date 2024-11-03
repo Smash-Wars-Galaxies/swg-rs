@@ -872,6 +872,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "swg_iff"
+version = "0.1.0"
+dependencies = [
+ "binrw",
+ "byteorder",
+ "divan",
+ "miette",
+ "swg_workspace",
+ "thiserror",
+ "tracing",
+ "tracing-test",
+ "walkdir",
+]
+
+[[package]]
 name = "swg_tre"
 version = "0.1.0"
 dependencies = [
