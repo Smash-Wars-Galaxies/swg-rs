@@ -17,5 +17,6 @@ miette = { version = "7.2.0", features = ["fancy"] }
 swg_tre.workspace = true
 swg_workspace.workspace = true
 tracing = "0.1.40"
-tracing-subscriber = "0.3.18"
+tracing-log = "0.2.0"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter", "json"] }
 walkdir = "2.5.0"
