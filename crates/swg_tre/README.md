@@ -37,4 +37,4 @@ Our current Minimum Supported Rust Version is **1.73**.
 
 `swg_tre` is distributed under the terms of the GNU Affero General Public License (Version 3.0)
 
-See [LICENSE](../LICENSE) for details.
+See [LICENSE](../../LICENSE) for details.
