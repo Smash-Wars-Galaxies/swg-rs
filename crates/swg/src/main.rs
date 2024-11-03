@@ -1,14 +1,18 @@
 use std::io::IsTerminal;
 
 use clap::Parser;
+use clap_verbosity_flag::InfoLevel;
 use miette::{IntoDiagnostic, Result};
-use tracing::level_filters::LevelFilter;
+use tracing_log::AsTrace;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt, EnvFilter};
 
 #[derive(Parser)]
 #[command(version, about, long_about = None)]
 #[command(propagate_version = true)]
 struct Cli {
+    #[command(flatten)]
+    verbose: clap_verbosity_flag::Verbosity<InfoLevel>,
+
     #[command(subcommand)]
     command: swg::commands::Commands,
 }
@@ -30,10 +34,11 @@ fn main() -> Result<()> {
         )
         .with(
             EnvFilter::builder()
-                .with_default_directive(LevelFilter::INFO.into())
-                .from_env_lossy()
+                .with_default_directive(cli.verbose.log_level_filter().as_trace().into())
+                .from_env_lossy(),
         )
-        .try_init().into_diagnostic()?;
+        .try_init()
+        .into_diagnostic()?;
 
     cli.command.handle()
 }

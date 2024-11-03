@@ -13,6 +13,7 @@ publish = true
 [dependencies]
 better-panic = "0.3.0"
 clap = { version = "4.5.19", features = ["derive"] }
+clap-verbosity-flag = "2.2.2"
 miette = { version = "7.2.0", features = ["fancy"] }
 swg_tre.workspace = true
 swg_workspace.workspace = true
