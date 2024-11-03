@@ -10,8 +10,8 @@ repository = "https://github.com/Smash-Wars-Galaxies/swg-rs"
 license = "AGPL-3.0-or-later"
 
 [workspace.dependencies]
-swg = { path = "crates/swg" }
-swg_tre = { path = "crates/swg_tre" }
+swg = { version = "0.1", path = "crates/swg" }
+swg_tre = { version = "0.1", path = "crates/swg_tre" }
 swg_workspace = { version = "0.1" }
 
 [patch.crates-io.swg_workspace]

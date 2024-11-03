@@ -1,6 +1,7 @@
 [package]
 name = "swg"
 version = "0.1.0"
+description = "This tool serves to make interacting with data for Star Wars Galaxies files easier to automate"
 edition.workspace = true
 rust-version.workspace = true
 repository.workspace = true
