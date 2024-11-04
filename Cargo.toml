@@ -22,6 +22,10 @@ path = "crates/swg_workspace"
 inherits = "release"
 lto = "thin"
 
+[workspace.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
+
 [workspace.metadata.crane]
 name = "swg"
 
