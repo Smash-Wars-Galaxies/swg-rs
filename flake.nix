@@ -176,6 +176,7 @@
             pkgs.cargo-semver-checks
             pkgs.cargo-msrv
             pkgs.cargo-dist
+            pkgs.cargo-release
           ];
         };
       };
