@@ -182,9 +182,19 @@ impl<R: Read + Seek> TreArchive<R> {
         self.shared.header.record_compression
     }
 
+    /// Returns the record block size
+    pub fn get_record_block_size(&self) -> u32 {
+        self.shared.header.record_compressed
+    }
+
     /// Returns how the records data was compressed.
     pub fn get_name_compression(&self) -> CompressionMethod {
         self.shared.header.name_compression
+    }
+
+    /// Returns the name block size
+    pub fn get_name_block_size(&self) -> u32 {
+        self.shared.header.name_compressed
     }
 
     /// Get the index of a file entry by name, if it's present.

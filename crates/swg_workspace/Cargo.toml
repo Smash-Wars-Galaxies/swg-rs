@@ -21,6 +21,7 @@ publish = true
 clap = { version = "4", features = ["derive", "env", "wrap_help"] }
 clap_builder = { version = "4", default-features = false, features = ["color", "env", "std", "suggestions", "usage", "wrap_help"] }
 log = { version = "0.4", default-features = false, features = ["std"] }
+owo-colors = { version = "4", default-features = false, features = ["supports-colors"] }
 tracing = { version = "0.1", features = ["log"] }
 tracing-core = { version = "0.1" }
 tracing-log = { version = "0.2" }

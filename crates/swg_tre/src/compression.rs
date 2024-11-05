@@ -1,6 +1,9 @@
 //! Block compression and decompression handling.
 
-use std::io::{self, Read, Seek, Write};
+use std::{
+    fmt::Display,
+    io::{self, Read, Seek, Write},
+};
 
 use binrw::{io::NoSeek, BinRead, BinWrite};
 use flate2::{read::ZlibDecoder, write::ZlibEncoder, Compression};
@@ -23,6 +26,15 @@ pub enum CompressionMethod {
     /// Compress the data using Zlib
     #[default]
     Zlib = 2,
+}
+
+impl Display for CompressionMethod {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            CompressionMethod::None => write!(f, "None"),
+            CompressionMethod::Zlib => write!(f, "Zlib"),
+        }
+    }
 }
 
 impl From<u32> for CompressionMethod {

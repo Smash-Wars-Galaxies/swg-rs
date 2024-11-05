@@ -90,6 +90,7 @@
             fileset = lib.fileset.unions [
               ./Cargo.toml
               ./Cargo.lock
+              ./crates/swg_stf
               ./crates/swg_tre
               ./crates/swg_workspace
               crate

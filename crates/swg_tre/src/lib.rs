@@ -1,5 +1,5 @@
 //! This library handles reading from and creating **TRE** files used by *Star Wars Galaxies*.
-//! 
+//!
 //! # TRE Archive Format Documentation
 //!
 //! This crate provides utilities to read and extract data from the **TRE** archive format used by
