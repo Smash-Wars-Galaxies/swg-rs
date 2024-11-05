@@ -1,0 +1,24 @@
+[package]
+name = "swg_stf"
+version = "0.1.0"
+description = "A library for reading from and creating STF files used by Star Wars Galaxies"
+edition.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+license.workspace = true
+keywords = ["stf", "swg"]
+categories = ["compression", "game-development", "parser-implementations"]
+
+publish = true
+exclude = ["tests/**", "resources/**", "benches/**", "examples/**"]
+
+[dependencies]
+byteorder = "1"
+miette = { version = "7.2.0", features = ["fancy"] }
+swg_workspace.workspace = true
+thiserror = "1.0.64"
+tracing = { version = "0.1.40", features = ["log"] }
+widestring = "1.1.0"
+
+[dev-dependencies]
+tracing-test = { version = "0.2.5", features = ["no-env-filter"] }
