@@ -1,4 +1,4 @@
-use clap::Args;
+use clap::{ArgAction, Args};
 use miette::miette;
 use miette::{Context, IntoDiagnostic, Result};
 use std::{fs::File, path::PathBuf};
@@ -15,6 +15,10 @@ pub struct MergeArgs {
     /// A target TRE file
     #[arg(short, long, value_name = "FILE")]
     file: PathBuf,
+
+    /// Compress the file and it's entries
+    #[arg(long, default_value_t = true, action = ArgAction::Set)]
+    compress: bool,
 
     /// Allow overwriting the target
     #[arg(long, default_value_t = false)]
@@ -45,13 +49,19 @@ impl MergeArgs {
                 .context(format!("creating {}", &self.file.display()))?
         };
 
-        let mut tre = TreWriter::new(
-            &mut out,
+        let options = if self.compress {
             TreWriterOptions::builder()
                 .name_compression(CompressionMethod::Zlib)
                 .record_compression(CompressionMethod::Zlib)
-                .build(),
-        );
+                .build()
+        } else {
+            TreWriterOptions::builder()
+                .name_compression(CompressionMethod::None)
+                .record_compression(CompressionMethod::None)
+                .build()
+        };
+
+        let mut tre = TreWriter::new(&mut out, options);
 
         for file in files {
             let name = file
@@ -63,7 +73,11 @@ impl MergeArgs {
             tre.start_file(
                 name.to_str()
                     .ok_or(miette!("unable to convert {} to a string", name.display()))?,
-                CompressionMethod::Zlib,
+                if self.compress {
+                    CompressionMethod::Zlib
+                } else {
+                    CompressionMethod::None
+                },
             )
             .context(format!("starting entry for {}", name.display()))?;
 
