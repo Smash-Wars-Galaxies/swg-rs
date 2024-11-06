@@ -145,15 +145,14 @@ impl DiffArgs {
                 }
 
                 if self.mode != Mode::Symantic && file.ends_with(".stf") {
-                    let reader_left = StringTableReader::new(Cursor::new(data_left))?;
-                    let reader_right = StringTableReader::new(Cursor::new(data_right))?;
+                    let stf_left = StringTableReader::decode(Cursor::new(data_left))?;
+                    let stf_right = StringTableReader::decode(Cursor::new(data_right))?;
 
-                    let entries_left = reader_left.get_entries();
-                    let entries_right = reader_right.get_entries();
+                    println!("{:#?}", serde_json::to_string(&stf_left).unwrap());
 
-                    let entries_added = entries_right
+                    let entries_added = stf_right
                         .iter()
-                        .filter(|(k, _)| !entries_left.contains_key(k.as_str()))
+                        .filter(|(k, _)| !stf_left.contains_key(k.as_str()))
                         .collect::<Vec<_>>();
                     if !entries_added.is_empty() {
                         file_modified.push_str("\t\t* entries added:\n");
@@ -166,9 +165,9 @@ impl DiffArgs {
                         }
                     }
 
-                    let entries_removed = entries_left
+                    let entries_removed = stf_left
                         .iter()
-                        .filter(|(k, _)| !entries_right.contains_key(k.as_str()))
+                        .filter(|(k, _)| !stf_right.contains_key(k.as_str()))
                         .collect::<Vec<_>>();
                     if !entries_removed.is_empty() {
                         file_modified.push_str("\t\t* entries removed:\n");
@@ -181,20 +180,20 @@ impl DiffArgs {
                         }
                     }
 
-                    let entries_shared = entries_left
+                    let entries_shared = stf_left
                         .keys()
-                        .filter(|k| entries_right.contains_key(k.as_str()))
+                        .filter(|k| stf_right.contains_key(k.as_str()))
                         .collect::<Vec<_>>();
                     if !entries_shared.is_empty() {
                         let mut entries_modified = String::new();
 
                         for key in entries_shared {
-                            let old = entries_left
+                            let old = stf_left
                                 .get_key_value(key)
                                 .and_then(|(_, v)| v.to_string().ok())
                                 .unwrap_or("".into());
 
-                            let new = entries_right
+                            let new = stf_right
                                 .get_key_value(key)
                                 .and_then(|(_, v)| v.to_string().ok())
                                 .unwrap_or("".into());

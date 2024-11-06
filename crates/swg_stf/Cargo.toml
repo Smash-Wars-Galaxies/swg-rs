@@ -14,7 +14,18 @@ exclude = ["tests/**", "resources/**", "benches/**", "examples/**"]
 
 [dependencies]
 byteorder = "1"
+derive_more = { version = "1.0.0", features = [
+  "as_ref",
+  "constructor",
+  "deref",
+  "display",
+  "index",
+  "into_iterator",
+] }
 miette = { version = "7.2.0", features = ["fancy"] }
+polars = { version = "0.44.2", optional = true }
+serde = { version = "1.0.214", features = ["derive"], optional = true }
+serde_json = "1.0.132"
 swg_workspace.workspace = true
 thiserror = "1.0.64"
 tracing = { version = "0.1.40", features = ["log"] }
@@ -22,3 +33,8 @@ widestring = "1.1.0"
 
 [dev-dependencies]
 tracing-test = { version = "0.2.5", features = ["no-env-filter"] }
+
+[features]
+default = ["polars", "serde"]
+polars = ["dep:polars"]
+serde = ["dep:serde"]

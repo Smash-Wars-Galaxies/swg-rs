@@ -1,6 +1,7 @@
 use std::fs::File;
 use std::path::PathBuf;
 
+use polars::frame::DataFrame;
 use swg_stf::error::Result;
 use swg_stf::read::StringTableReader;
 use tracing_test::traced_test;
@@ -16,11 +17,16 @@ fn parse_stf() -> Result<()> {
     ));
 
     let mut file = File::open(&path)?;
-    let stf = StringTableReader::new(&mut file)?;
+    let stf = StringTableReader::decode(&mut file)?;
+
+    let df: DataFrame = stf.clone().try_into().unwrap();
+    println!("{:#?}", df);
+
+    assert!(false);
 
     assert_eq!(stf.len(), 1);
 
-    let first_entry = stf.by_id("test");
+    let first_entry = stf.get("test");
     assert!(first_entry.is_some());
 
     assert_eq!(first_entry.unwrap(), u16cstr!("testing"));

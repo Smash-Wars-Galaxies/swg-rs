@@ -55,5 +55,9 @@
 
 pub mod error;
 pub mod read;
+pub mod types;
+
+#[cfg(feature = "serde")]
+mod serde;
 
 pub use read::StringTableReader;
