@@ -55,5 +55,6 @@
 
 pub mod error;
 pub mod read;
+pub mod types;
 
 pub use read::StringTableReader;

@@ -2,14 +2,16 @@
 //!
 
 use byteorder::{LittleEndian, ReadBytesExt};
-use core::str;
 use std::{
     collections::HashMap,
     io::{Read, Seek},
 };
-use widestring::{U16Str, U16String};
+use widestring::U16String;
 
-use crate::error::{Error, Result};
+use crate::{
+    error::{Error, Result},
+    types::StringTable,
+};
 
 /// STF file reader
 ///
@@ -26,13 +28,11 @@ use crate::error::{Error, Result};
 ///     Ok(())
 /// }
 /// ```
-pub struct StringTableReader {
-    entries: HashMap<String, U16String>,
-}
+pub struct StringTableReader {}
 
 impl StringTableReader {
     /// Read a STF file and parse it's entries.
-    pub fn new<R: Read + Seek>(mut reader: R) -> Result<StringTableReader> {
+    pub fn decode<R: Read + Seek>(mut reader: R) -> Result<StringTable> {
         let magic = reader.read_u32::<LittleEndian>()?;
         if magic != 0x0000ABCD {
             return Err(Error::InvalidFile);
@@ -76,26 +76,6 @@ impl StringTableReader {
             .filter_map(|(id, name)| values.get(id).map(|value| (name.clone(), value.clone())))
             .collect();
 
-        Ok(StringTableReader { entries })
-    }
-
-    /// Number of entries contained in this STF.
-    pub fn len(&self) -> usize {
-        self.entries.len()
-    }
-
-    /// Whether this STF archive contains no entries
-    pub fn is_empty(&self) -> bool {
-        self.len() == 0
-    }
-
-    /// Get a reference to the entries in this file
-    pub fn get_entries(&self) -> &HashMap<String, U16String> {
-        &self.entries
-    }
-
-    /// Try to get a reference from this file by it's key
-    pub fn by_id(&self, id: impl AsRef<str>) -> Option<&U16Str> {
-        self.entries.get(id.as_ref()).map(|f| f.as_ustr())
+        Ok(StringTable::new(entries))
     }
 }

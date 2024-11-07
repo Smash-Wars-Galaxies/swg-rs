@@ -16,11 +16,11 @@ fn parse_stf() -> Result<()> {
     ));
 
     let mut file = File::open(&path)?;
-    let stf = StringTableReader::new(&mut file)?;
+    let stf = StringTableReader::decode(&mut file)?;
 
     assert_eq!(stf.len(), 1);
 
-    let first_entry = stf.by_id("test");
+    let first_entry = stf.get("test");
     assert!(first_entry.is_some());
 
     assert_eq!(first_entry.unwrap(), u16cstr!("testing"));
