@@ -12,6 +12,9 @@ pub enum Error {
     #[error(transparent)]
     Utf8Error(#[from] std::str::Utf8Error),
 
+    #[error("{0}")]
+    WinnowError(winnow::error::ErrMode<winnow::error::ContextError>),
+
     #[error("Invalid column header")]
     InvalidColumnHeader,
 
@@ -21,3 +24,6 @@ pub enum Error {
     #[error("Unknown cell datatype")]
     UnknownCellDatatype,
 }
+
+/// Generic result type with crate's Error as its error variant
+pub type Result<T> = core::result::Result<T, Error>;

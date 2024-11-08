@@ -19,6 +19,7 @@ miette = { version = "7.2.0", features = ["fancy"] }
 swg_workspace.workspace = true
 thiserror = "1.0.64"
 tracing = { version = "0.1.40", features = ["log"] }
+winnow = { version = "0.6.20", features = ["debug"] }
 
 [dev-dependencies]
 divan = "0.1.15"
