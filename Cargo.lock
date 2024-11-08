@@ -989,6 +989,7 @@ dependencies = [
  "byteorder",
  "divan",
  "miette",
+ "pretty_assertions",
  "swg_workspace",
  "thiserror",
  "tracing",

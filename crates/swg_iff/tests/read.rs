@@ -1,10 +1,7 @@
-use std::fs::File;
 use std::path::PathBuf;
 
-// use binrw::{BinRead, NullString};
-// use swg_iff::datatable::{CellData, DataTable};
 use swg_iff::error::Error;
-use swg_iff::iff::IFFReader;
+use swg_iff::iff::{GroupChunk};
 
 #[test]
 fn parse_iff() -> Result<(), Error> {
@@ -14,9 +11,9 @@ fn parse_iff() -> Result<(), Error> {
         env!("CARGO_MANIFEST_DIR")
     ));
 
-    // let mut file = File::open(&path)?;
-    let iff = IFFReader::parse(&path)?;
-    println!("{:?}", iff);
+    let mut buffer = std::fs::read(path)?;
+    let iff = GroupChunk::parse(&buffer)?;
+    println!("{:#?}", iff);
 
     assert!(false);
     Ok(())

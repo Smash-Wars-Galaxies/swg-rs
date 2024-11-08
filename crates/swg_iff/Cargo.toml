@@ -23,5 +23,6 @@ winnow = { version = "0.6.20", features = ["debug"] }
 
 [dev-dependencies]
 divan = "0.1.15"
+pretty_assertions = "1.4.1"
 tracing-test = { version = "0.2.5", features = ["no-env-filter"] }
 walkdir = "2.5.0"
