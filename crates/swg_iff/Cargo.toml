@@ -13,8 +13,11 @@ publish = true
 exclude = ["tests/**", "resources/**", "benches/**", "examples/**"]
 
 [dependencies]
+better_any = { version = "0.2.0", features = ["derive"] }
 binrw = "0.14.0"
 byteorder = "1"
+downcast-rs = "1.2.1"
+inventory = "0.3.15"
 miette = { version = "7.2.0", features = ["fancy"] }
 swg_workspace.workspace = true
 thiserror = "1.0.64"

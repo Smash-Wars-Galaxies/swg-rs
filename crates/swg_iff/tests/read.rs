@@ -1,7 +1,7 @@
 use std::path::PathBuf;
 
 use swg_iff::error::Error;
-use swg_iff::iff::{GroupChunk};
+// use swg_iff::iff::{GroupChunk};
 
 #[test]
 fn parse_iff() -> Result<(), Error> {
@@ -12,8 +12,8 @@ fn parse_iff() -> Result<(), Error> {
     ));
 
     let mut buffer = std::fs::read(path)?;
-    let iff = GroupChunk::parse(&buffer)?;
-    println!("{:#?}", iff);
+    // let iff = GroupChunk::parse(&buffer)?;
+    // println!("{:#?}", iff);
 
     assert!(false);
     Ok(())
